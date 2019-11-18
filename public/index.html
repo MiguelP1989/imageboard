@@ -1,10 +1,40 @@
 <!doctype html>
 <html>
+
 <head>
-    <title></title>
+    <title>Imageboard</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
+
 <body>
+    <h1>Imageboard</h1>
+
+    <div class="imagecontainer">
+        <div id="main">
+
+        <!-- <h2>the best cohort is ...{{name}}</h2>
+        <h2>Maths! 2 * 2 = {{2 * 2}}</h2>
+        <h2>capitalise! = {{"habanero".toUpperCase()}}</h2>
+        <h2>capitalise! = {{name.toUpperCase()}}</h2>
+        <h2 v-if="seen">Can you see me?</h2>
+    <h2 v-else>I am the else....</h2> -->
+
+            <div  v-for="image in images">
+                <img :src="image.url" alt="">
+                <p>{{image.title}}</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    </script>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
+
 </html>
+
+
+<!-- @click = v-on:click -->
