@@ -4,23 +4,29 @@
 }
 
 body {
-    background-color: hotpink;
+    background-image: url("https://ak4.picdn.net/shutterstock/videos/511804/thumb/1.jpg");
+    background-size: cover;
+    display: grid;
 }
 
-#main {
+.imageContainer {
     width: 90%;
     margin: 30px auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    grid-gap: 1vw;
+    grid-gap: 5vw;
 }
 
 img {
-    height: 350px;
+    height: 300px;
     object-fit: cover;
     border-radius: 10px;
     /* border-top-right-radius: 10px;
     border-top-left-radius: 10px; */
-    width: 350px;
+    width: 300px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.file-upload {
+    margin-top: 20px;
 }

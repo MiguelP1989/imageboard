@@ -2,34 +2,50 @@
 <html>
 
 <head>
+    <script src="/js/vue.js"></script>
     <title>Imageboard</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <h1>Imageboard</h1>
 
-    <div class="imagecontainer">
+</header>
+<h1>Imageboard</h1>
+<h2>Add an image now!!</h2>
+<header>
+
+
+    <main>
         <div id="main">
+            <form >
+                <input v-model="title" typex="text" name="title" placeholder="title" name="title">
+                <input v-model="description" type="text" name="description" placeholder="description" name="description">
+                <input v-model="username" type="text" name="username" placeholder="username" name="username">
 
-        <!-- <h2>the best cohort is ...{{name}}</h2>
+                <div class="file-upload">
+                    <input  type="file" name="file" accept="image/*" v-on:change="handleChange">
+                    <button v-on:click.prevent.default="submitFile">Upload</button>
+                </div>
+            </form>
+
+
+            <!-- <h2>the best cohort is ...{{name}}</h2>
         <h2>Maths! 2 * 2 = {{2 * 2}}</h2>
         <h2>capitalise! = {{"habanero".toUpperCase()}}</h2>
         <h2>capitalise! = {{name.toUpperCase()}}</h2>
         <h2 v-if="seen">Can you see me?</h2>
     <h2 v-else>I am the else....</h2> -->
-
-            <div  v-for="image in images">
+<div class="imageContainer">
+            <div v-for="image in images">
                 <img :src="image.url" alt="">
                 <p>{{image.title}}</p>
             </div>
         </div>
 
-    </div>
+    </main>
 
 
     </script>
-    <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>
 </body>
