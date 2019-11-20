@@ -27,6 +27,14 @@ const uploader = multer({
 
 app.use(express.static("./public"));
 
+app.use(
+    express.urlencoded({
+        extended: false
+    })
+);
+
+app.use(express.json());
+
 app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     // console.log("this is the upload file...!");
     // console.log("input....:", req.body);
@@ -46,16 +54,6 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
         .catch(err => {
             console.log("err...", err);
         });
-
-    // if (req.file) {
-    //     res.json({
-    //         success: true
-    //     });
-    // } else {
-    //     res.json({
-    //         success: false
-    //     });
-    // }
 });
 
 app.get("/images", (req, res) => {
@@ -66,19 +64,29 @@ app.get("/images", (req, res) => {
             res.json(rows);
         })
         .catch(err => console.log("err ", err));
-
-    // db.saveUploads().the()
 });
-// let animals = [
-//     {
-//         name: "Squid",
-//         emoji: "🦑"
-//     },
-//     {
-//         name: "Rabbit",
-//         emoji: "🐇"
-//     }
-// ];
-// });
+
+//////////    get singleimage comments///////
+
+app.get("/singleimage/:id", (req, res) => {
+    console.log("req.params....", req.params);
+    let imageid = req.params.id;
+    db.getSelectedImage(imageid).then(results => {
+        console.log("results....", results);
+
+        db.getComments(imageid).then(data => {
+            console.log("daaaaaata....", data);
+        });
+
+        let rows = results.rows;
+        res.json(rows);
+    });
+});
+
+//////////// post comments //////////
+
+app.post("/singleimage/:id", (req, res) => {
+    console.log("req.bodoooooody....:", req.body);
+});
 
 app.listen(8080, () => console.log("imageboard up and running...."));

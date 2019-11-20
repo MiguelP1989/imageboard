@@ -9,44 +9,69 @@
 
 <body>
 
-</header>
-<h1>Imageboard</h1>
-<h2>Add an image now!!</h2>
-<header>
+    <header>
+        <h1>Fruit&VegBoard</h1>
+        <h2>Add your FV now!!</h2>
+    </header>
 
 
     <main>
         <div id="main">
-            <form >
-                <input v-model="title" typex="text" name="title" placeholder="title" name="title">
-                <input v-model="description" type="text" name="description" placeholder="description" name="description">
-                <input v-model="username" type="text" name="username" placeholder="username" name="username">
-
+            <!-- <my-component greetee="funcky chicken"></my-component>
+            <my-component></my-component>
+            <my-component></my-component> -->
+            <form>
+                <input v-model="title" typex="text" name="title" placeholder="Title" name="title">
+                <input v-model="description" type="text" name="description" placeholder="Description" name="description">
+                <input v-model="username" type="text" name="username" placeholder="Username" name="username">
                 <div class="file-upload">
-                    <input  type="file" name="file" accept="image/*" v-on:change="handleChange">
-                    <button v-on:click.prevent.default="submitFile">Upload</button>
+                    <input type="file" name="file" accept="image/*" v-on:change="handleChange">
+                    <button id="btn" v-on:click.prevent.default="submitFile">Choose</button>
                 </div>
+                <button v-on:click.prevent.default="submitFile">Upload</button>
             </form>
 
 
-            <!-- <h2>the best cohort is ...{{name}}</h2>
-        <h2>Maths! 2 * 2 = {{2 * 2}}</h2>
-        <h2>capitalise! = {{"habanero".toUpperCase()}}</h2>
-        <h2>capitalise! = {{name.toUpperCase()}}</h2>
-        <h2 v-if="seen">Can you see me?</h2>
-    <h2 v-else>I am the else....</h2> -->
-<div class="imageContainer">
-            <div v-for="image in images">
-                <img :src="image.url" alt="">
-                <p>{{image.title}}</p>
+            <div class="imageContainer">
+                <div v-for="image in images">
+                    <img :src="image.url" alt="" @click="popupmodal(image.id)">
+                    <div class="imagetitle">
+                        <p>{{image.title}}</p>
+                    </div>
+                </div>
+                <my-component
+                v-if="currentImage"
+                v-bind:id="currentImage" @close-the-component = closingTheModal
+                >
+            </my-component>
             </div>
-        </div>
 
     </main>
 
+<script id="popup-template" type="text/x-template">
 
-    </script>
+<div class="main-popup-container">
+    <div class="popup-container">
+        <h3 @click = "closeModal" id="close">X</h3>
+        <img :src="singleimage">
+        <h5>{{title}}</h5>
+        <p>{{description}}</p>
+        <p>{{username}}</p>
+        <div class="comment-container">
+        <form>
+            <input v-model="comment" type="text" name="comment" placeholder="add a comment"></input>
+            <input  v-model="username" type="text" placeholder="your name" name="username">
+            <button type="submit" @click="submitcomment">Submit</button>
+        </form>
+    </div>
+    </div>
+</div>
+</script>
+
+
+
     <script src="/js/axios.min.js"></script>
+    <script src="/js/component.js"></script>
     <script src="/js/script.js"></script>
 </body>
 
@@ -54,3 +79,11 @@
 
 
 <!-- @click = v-on:click -->
+
+
+<!-- <h2>the best cohort is ...{{name}}</h2>
+<h2>Maths! 2 * 2 = {{2 * 2}}</h2>
+<h2>capitalise! = {{"habanero".toUpperCase()}}</h2>
+<h2>capitalise! = {{name.toUpperCase()}}</h2>
+<h2 v-if="seen">Can you see me?</h2>
+<h2 v-else>I am the else....</h2> -->

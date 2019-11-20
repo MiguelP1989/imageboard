@@ -1,32 +1,127 @@
 * {
     box-sizing: border-box;
-    font-family: "Hind", sans-serif;
+    font-family: "Open Sans", sans-serif;
 }
 
 body {
-    background-image: url("https://ak4.picdn.net/shutterstock/videos/511804/thumb/1.jpg");
-    background-size: cover;
+    /* background-size: cover; */
+    /* background-color: #35495e; */
+    /* background-color: black; */
     display: grid;
+}
+
+#main {
+}
+
+header {
+    /* background-color: #42b883; */
+    text-align: center;
 }
 
 .imageContainer {
     width: 90%;
     margin: 30px auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     grid-gap: 5vw;
 }
 
+form {
+    margin-left: 60px;
+}
+
+input {
+    margin: 10px;
+    width: 250px;
+    height: 30px;
+    padding: 15px;
+    font-size: 15px;
+    background: linear-gradient(21deg, #ff7e67, white);
+}
+
+.file-upload {
+    position: relative;
+    top: 14px;
+    overflow: hidden;
+    display: inline-block;
+}
+/* .btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+} */
+
+.file-upload input[type="file"] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+button {
+    background-color: #ff7e67;
+    width: 100px;
+    height: 35px;
+    border-radius: 500px;
+    border-width: 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: white;
+    margin-top: 10px;
+}
+
+.imagetitle {
+    padding: 5px;
+    width: 300px;
+    /* background-color: #42b883; */
+}
 img {
-    height: 300px;
+    height: 250px;
     object-fit: cover;
     border-radius: 10px;
+    border: 2px solid black;
     /* border-top-right-radius: 10px;
     border-top-left-radius: 10px; */
-    width: 300px;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    width: 250px;
+    /* box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22); */
 }
 
 .file-upload {
     margin-top: 20px;
+}
+
+.main-popup-container {
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.popup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    overflow: scroll;
+    width: 70%;
+    height: auto;
+    top: 5%;
+    left: 15%;
+    bottom: 5%;
+    background: #fff;
+    padding: 1% 3%;
+    margin: 0 auto;
+    border: 5px solid #404b69;
+    z-index: 2;
 }

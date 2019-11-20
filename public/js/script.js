@@ -39,6 +39,7 @@
     new Vue({
         el: "#main",
         data: {
+            currentImage: null,
             images: [],
             file: null,
             title: "",
@@ -83,6 +84,14 @@
                     .catch(function(err) {
                         console.log("error in post upload..", err);
                     });
+            },
+            popupmodal: function(id) {
+                this.currentImage = id;
+                console.log("id.....", id);
+            },
+            closingTheModal: function() {
+                // name of the emitted message (close-the-component) is refering to the eventhandler in the <popup> tag in index.html
+                this.currentImage = 0;
             }
         }
     });
