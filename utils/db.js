@@ -37,14 +37,10 @@ exports.insertComment = function(comment, username, imageId) {
 };
 
 exports.getComments = function(id) {
-    return db
-        .query(
-            `SELECT * FROM comments
+    return db.query(
+        `SELECT * FROM comments
         WHERE image_id = $1
         ORDER BY id DESC`,
-            [id]
-        )
-        .then(function(comments) {
-            return comments.rows;
-        });
+        [id]
+    );
 };

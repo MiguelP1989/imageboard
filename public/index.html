@@ -39,20 +39,17 @@
                         <p>{{image.title}}</p>
                     </div>
                 </div>
-                <my-component
-                v-if="currentImage"
-                v-bind:id="currentImage" @close-the-component = closingTheModal
-                >
-            </my-component>
+                <my-component v-if="currentImage" v-bind:id="currentImage" @close="closingthemodal">
+                </my-component>
             </div>
 
     </main>
 
-<script id="popup-template" type="text/x-template">
+    <script id="popup-template" type="text/x-template">
 
-<div class="main-popup-container">
+        <div class="main-popup-container">
     <div class="popup-container">
-        <h3 @click = "closeModal" id="close">X</h3>
+        <h3 @click = "closemodal" id="close">X</h3>
         <img :src="singleimage">
         <h5>{{title}}</h5>
         <p>{{description}}</p>
@@ -61,11 +58,19 @@
         <form>
             <input v-model="comment" type="text" name="comment" placeholder="add a comment"></input>
             <input  v-model="username" type="text" placeholder="your name" name="username">
-            <button type="submit" @click="submitcomment">Submit</button>
+            <button type="submit" v-on:click.prevent.default="submitcomment">Submit</button>
         </form>
+        <div class="comments">
+            <div v-for = "comment in comments" class="singleComment">
+                <p>{{comment}}</p>
+                <p>From {{username}} on {{timestamp}}
+            </div>
+        </div>
     </div>
     </div>
 </div>
+
+
 </script>
 
 

@@ -89,8 +89,7 @@
                 this.currentImage = id;
                 console.log("id.....", id);
             },
-            closingTheModal: function() {
-                // name of the emitted message (close-the-component) is refering to the eventhandler in the <popup> tag in index.html
+            closingthemodal: function() {
                 this.currentImage = 0;
             }
         }

@@ -74,19 +74,32 @@ app.get("/singleimage/:id", (req, res) => {
     db.getSelectedImage(imageid).then(results => {
         console.log("results....", results);
 
-        db.getComments(imageid).then(data => {
-            console.log("daaaaaata....", data);
-        });
-
         let rows = results.rows;
         res.json(rows);
     });
 });
 
+// app.get("/singleimage/:id", (req, res) => {
+//     let imageid = req.params.id;
+//     db.getComments(imageid).then(data => {
+//         console.log("daaaaaata....", data);
+//         let rows = data.rows;
+//         res.json(rows);
+//     });
+// });
+
 //////////// post comments //////////
 
 app.post("/singleimage/:id", (req, res) => {
     console.log("req.bodoooooody....:", req.body);
+    let comment = req.body.comment;
+    let username = req.body.username;
+    let imageid = req.params.id;
+    db.insertComment(comment, username, imageid).then(results => {
+        console.log("results from insertComment...:", results);
+        let rows = results.rows;
+        res.json(rows);
+    });
 });
 
 app.listen(8080, () => console.log("imageboard up and running...."));

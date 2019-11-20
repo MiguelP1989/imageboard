@@ -59,9 +59,9 @@ Vue.component("my-component", {
             });
     },
 
-    method: {
-        closeModal: function() {
-            this.$emit("close-the-component");
+    methods: {
+        closemodal: function() {
+            this.$emit("close");
         },
         submitcomment: function(e) {
             e.preventDefault();
@@ -78,9 +78,9 @@ Vue.component("my-component", {
                 .then(function(resp) {
                     console.log("axios is working...!");
                     console.log("respod ", resp);
-                    // me.comments.unshift(resp.data.newComment);
-                    // me.comment = "";
-                    // me.username = "";
+                    me.comments.unshift(resp.data[0].comment);
+                    me.username = resp.data[0].username;
+                    me.timestamp = resp.data[0]["created_at"];
                 })
                 .catch(function(err) {
                     console.log("error: ", err);
