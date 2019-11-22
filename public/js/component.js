@@ -39,7 +39,7 @@ Vue.component("my-component", {
             timestamp: "",
             description: "",
             comments: []
-        };
+        }; // {comment: ..., username:..., id:;;;, }
     },
     mounted: function() {
         console.log("i will always love vueee");
@@ -47,6 +47,7 @@ Vue.component("my-component", {
         axios
             .get(`/singleimage/${me.id}`)
             .then(function(resp) {
+                console.log("reeeeeeesponse....", resp);
                 console.log("response from :", resp.data);
                 me.singleimage = resp.data[0].url;
                 me.title = resp.data[0].title;
@@ -57,6 +58,10 @@ Vue.component("my-component", {
             .catch(err => {
                 console.log("errrorr:  ", err);
             });
+        axios.get(`/singleimage/${me.id}/comment`).then(function(resp) {
+            console.log("response for comment...:", resp);
+            me.comments = resp.data;
+        });
     },
 
     methods: {
@@ -78,9 +83,7 @@ Vue.component("my-component", {
                 .then(function(resp) {
                     console.log("axios is working...!");
                     console.log("respod ", resp);
-                    me.comments.unshift(resp.data[0].comment);
-                    me.username = resp.data[0].username;
-                    me.timestamp = resp.data[0]["created_at"];
+                    me.comments.unshift(resp.data[0]);
                 })
                 .catch(function(err) {
                     console.log("error: ", err);

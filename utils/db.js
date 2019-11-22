@@ -5,7 +5,7 @@ var db = spicedPg(
 );
 
 module.exports.getImages = function() {
-    return db.query(`SELECT * FROM images ORDER BY id DESC`);
+    return db.query(`SELECT * FROM images ORDER BY id DESC LIMIT 5`);
 };
 
 module.exports.addImage = function(title, des, username, imageUrl) {
@@ -44,3 +44,31 @@ exports.getComments = function(id) {
         [id]
     );
 };
+
+// module.exports.getImages = function() {
+//     return db.query(`SELECT images.*, (
+//         select id from images
+//         order by asc limit 1
+//         ) as "lowerId" from images
+//         WHERE id < $1
+//         ORDER BY id DESC
+//         LIMIT 10`);
+// };
+
+// // OFFSET 10 OR OFFSET $1
+exports.loadImages = function(imagId) {
+    return db.query(
+        `SELECT * FROM images
+    WHERE id < $1
+    ORDER BY id DESC`,
+        [imagId]
+    );
+};
+
+//
+// this.images[this.images.length -1].id
+
+// select id from images
+// order by asc
+// limit 1
+//

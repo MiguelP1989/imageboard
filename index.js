@@ -71,22 +71,30 @@ app.get("/images", (req, res) => {
 app.get("/singleimage/:id", (req, res) => {
     console.log("req.params....", req.params);
     let imageid = req.params.id;
-    db.getSelectedImage(imageid).then(results => {
-        console.log("results....", results);
+    db.getSelectedImage(imageid)
+        .then(results => {
+            // console.log("results....", results);
 
-        let rows = results.rows;
-        res.json(rows);
-    });
+            let rows = results.rows;
+            res.json(rows);
+        })
+        .catch(err => {
+            console.log("err ", err);
+        });
 });
 
-// app.get("/singleimage/:id", (req, res) => {
-//     let imageid = req.params.id;
-//     db.getComments(imageid).then(data => {
-//         console.log("daaaaaata....", data);
-//         let rows = data.rows;
-//         res.json(rows);
-//     });
-// });
+app.get("/singleimage/:id/comment", (req, res) => {
+    let imageid = req.params.id;
+    db.getComments(imageid)
+        .then(data => {
+            console.log("daaaaaata....", data);
+            let rows = data.rows;
+            res.json(rows);
+        })
+        .catch(err => {
+            console.log("err: ", err);
+        });
+});
 
 //////////// post comments //////////
 
@@ -95,11 +103,31 @@ app.post("/singleimage/:id", (req, res) => {
     let comment = req.body.comment;
     let username = req.body.username;
     let imageid = req.params.id;
-    db.insertComment(comment, username, imageid).then(results => {
-        console.log("results from insertComment...:", results);
-        let rows = results.rows;
-        res.json(rows);
-    });
+    db.insertComment(comment, username, imageid)
+        .then(results => {
+            // console.log("results from insertComment...:", results);
+            let rows = results.rows;
+            res.json(rows);
+        })
+        .catch(err => {
+            console.log("error :", err);
+        });
+});
+
+//////// get loadedimages /////
+
+app.get("/loadImages/:id", (req, res) => {
+    let lastimageId = req.params.id;
+    db.loadImages(lastimageId)
+        .then(results => {
+            console.log("results......", results);
+
+            let rows = results.rows;
+            res.json(rows);
+        })
+        .catch(err => {
+            console.log("error...", err);
+        });
 });
 
 app.listen(8080, () => console.log("imageboard up and running...."));

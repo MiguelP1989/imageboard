@@ -47,7 +47,7 @@
 
     <script id="popup-template" type="text/x-template">
 
-        <div class="main-popup-container">
+    <div class="main-popup-container">
     <div class="popup-container">
         <h3 @click = "closemodal" id="close">X</h3>
         <img :src="singleimage">
@@ -61,9 +61,10 @@
             <button type="submit" v-on:click.prevent.default="submitcomment">Submit</button>
         </form>
         <div class="comments">
-            <div v-for = "comment in comments" class="singleComment">
-                <p>{{comment}}</p>
-                <p>From {{username}} on {{timestamp}}
+            <div v-for = "commentobj in comments" class="singleComment">
+                <p>{{commentobj.comment}}</p>
+                <p>From {{commentobj.username}} on {{commentobj.created_at}}</p>
+
             </div>
         </div>
     </div>

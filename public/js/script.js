@@ -39,7 +39,7 @@
     new Vue({
         el: "#main",
         data: {
-            currentImage: null,
+            currentImage: location.hash.slice(1),
             images: [],
             file: null,
             title: "",
@@ -51,9 +51,10 @@
             // console.log("this is my images data: ", this.images);
             var me = this;
             axios.get("/images").then(function(response) {
-                // console.log("response from /images :", response.data);
+                console.log("response from /images :", response.data);
                 // console.log("me.images: ", me.images);
                 me.images = response.data;
+                me.loadMore();
             });
         },
         methods: {
@@ -91,22 +92,46 @@
             },
             closingthemodal: function() {
                 this.currentImage = 0;
+            },
+
+            loadMore: function() {
+                var me = this;
+                window.onscroll = function() {
+                    console.log("scroll running");
+                    let bottomOfWindow =
+                        document.documentElement.scrollTop +
+                            window.innerHeight ===
+                        document.documentElement.offsetHeight;
+                    // console.log(document.documentElement.scrollTop);
+                    // console.log("me.image inside scroll :", me.images);
+                    // console.log("bottomOfWindow...", bottomOfWindow);
+                    // console.log("thiiiiiss: ", me);
+                    let lastimageid = me.images[me.images.length - 1].id;
+                    console.log("lastimageid...", lastimageid);
+                    if (bottomOfWindow == true) {
+                        console.log("lastimageid....", lastimageid);
+                        console.log("we are in the infinite scrool!");
+                        axios
+                            .get("/loadImages/" + lastimageid)
+                            .then(response => {
+                                console.log("response.data ", response.data);
+                                me.images = me.images.concat(response.data);
+                            });
+                    }
+                };
             }
         }
     });
 })();
-// function checkScroll() {
-//     setTimeout(function() {
-//         if (
-//             $(window).height() + $(document).scrollTop() >=
-//             $(document).height() - 200
-//         ) {
-//             scroll();
-//         } else {
-//             checkScroll();
-//         }
-//     }, 300);
-// }
+
 // if (nextUrl) {
 //     checkScroll();
 // }
+// mounted: function(){
+//     var me = this
+// }
+// addEventListener("hashcahage", function() {
+//     console.log(location.hash.slice(1));
+// });
+
+// <a v-for:images in images
