@@ -11,33 +11,49 @@
 
     <header>
         <h1>Fruit&VegBoard</h1>
-        <h2>Add your FV now!!</h2>
+        <h2>Add your F&V now!!</h2>
     </header>
 
 
     <main>
         <div id="main">
-            <!-- <my-component greetee="funcky chicken"></my-component>
-            <my-component></my-component>
-            <my-component></my-component> -->
-            <form>
-                <input v-model="title" typex="text" name="title" placeholder="Title" name="title">
-                <input v-model="description" type="text" name="description" placeholder="Description" name="description">
-                <input v-model="username" type="text" name="username" placeholder="Username" name="username">
-                <div class="file-upload">
-                    <input type="file" name="file" accept="image/*" v-on:change="handleChange">
-                    <button id="btn" v-on:click.prevent.default="submitFile">Choose</button>
-                </div>
-                <button v-on:click.prevent.default="submitFile">Upload</button>
-            </form>
+<form>
+<input v-model="title" typex="text" name="title" placeholder="Title" name="title">
+<input v-model="description" type="text" name="description" placeholder="Description" name="description">
+<input v-model="username" type="text" name="username" placeholder="Username" name="username">
+<select v-model="tag" name="tag">
+    <option disabled value="">Please select a tag</option>
+    <option>Veg</option>
+    <option>Fruit</option>
+</select>
+<div class="file-upload">
+<input type="file" name="file" accept="image/*" v-on:change="handleChange">
+<button id="btn" v-on:click.prevent.default="submitFile">Choose</button>
+</div>
+<button v-on:click.prevent.default="submitFile">Upload</button>
+</form>
+
+<div class="select-tags">
+    <h2>Select a tag</h2>
+    <div>
+    <button v-on:click.prevent.default = "filterByTag('veg')">Veg tags</button>
+    <button v-on:click.prevent.default = "filterByTag('fruit')">Fruit tags</button>
+</div>
+</div>
 
 
             <div class="imageContainer">
                 <div v-for="image in images">
-                    <img :src="image.url" alt="" @click="popupmodal(image.id)">
+                    <a :href =" '#' + image.id"><img  :src="image.url" alt="" ></a>
+                    <!-- @click="popupmodal(image.id)" -->
                     <div class="imagetitle">
-                        <p>{{image.title}}</p>
+                        <p><strong>{{image.title}}</strong></br>
+                        On {{image.created_at}}</p>
+                        <!-- <p>{{image.description}}</p> -->
+
+
                     </div>
+
                 </div>
                 <my-component v-if="currentImage" v-bind:id="currentImage" @close="closingthemodal">
                 </my-component>
@@ -50,26 +66,42 @@
     <div class="main-popup-container">
     <div class="popup-container">
         <h3 @click = "closemodal" id="close">X</h3>
+
+
+        <div  class="imagepopup">
+            <h2>{{title}}</h2>
+            <img :src="singleimage" class="selected-img">
+            <p v-if="description"><strong>  Description: </strong>{{description}}</p>
+            <p><strong>Uploaded by: </strong>{{username}}</p>
+            <p><strong>Date: </strong>{{timestamp}}</p>
+
+        </div>
+
+         <!-- <div class="imagepopup">
+            <h5>{{title}}</h5>
         <img :src="singleimage">
-        <h5>{{title}}</h5>
+    </div>
+    <div class="imageDescription">
         <p>{{description}}</p>
         <p>{{username}}</p>
+    </div> -->
         <div class="comment-container">
-        <form>
-            <input v-model="comment" type="text" name="comment" placeholder="add a comment"></input>
-            <input  v-model="username" type="text" placeholder="your name" name="username">
+        <div id="submit-comment">
+            <input id ="formcoment" v-model="comment" type="text" name="comment" placeholder="Add a comment"></input>
+            <input  id ="formcoment" v-model="commentusername" type="text" placeholder="Your name" name="username">
             <button type="submit" v-on:click.prevent.default="submitcomment">Submit</button>
-        </form>
+        </div>
         <div class="comments">
-            <div v-for = "commentobj in comments" class="singleComment">
-                <p>{{commentobj.comment}}</p>
-                <p>From {{commentobj.username}} on {{commentobj.created_at}}</p>
+            <div v-for = "commentobj in comments" class="commentsbox">
+                <p class="singleComment"><strong>{{commentobj.username}}  said on {{commentobj.created_at}}:</strong></p>
+                <p>"{{commentobj.comment}}"</p>
+            </div>
 
             </div>
         </div>
     </div>
     </div>
-</div>
+</main>
 
 
 </script>

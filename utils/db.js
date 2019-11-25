@@ -5,16 +5,16 @@ var db = spicedPg(
 );
 
 module.exports.getImages = function() {
-    return db.query(`SELECT * FROM images ORDER BY id DESC LIMIT 5`);
+    return db.query(`SELECT * FROM images ORDER BY id DESC LIMIT 8`);
 };
 
-module.exports.addImage = function(title, des, username, imageUrl) {
+module.exports.addImage = function(title, description, username, imageUrl) {
     return db.query(
         `
             INSERT INTO images (title, description, username, url)
             VALUES ($1, $2, $3, $4)
             RETURNING id, url, username, title, description`,
-        [title || null, des || null, username || null, imageUrl]
+        [title || null, description || null, username || null, imageUrl]
     );
 };
 
@@ -65,10 +65,33 @@ exports.loadImages = function(imagId) {
     );
 };
 
-//
-// this.images[this.images.length -1].id
+exports.saveTag = function(tag, image_id) {
+    return db.query(
+        `
+            INSERT INTO tags (tag, image_id)
+            VALUES ($1, $2)
+            RETURNING tag, image_id`,
+        [tag, image_id || null]
+    );
+};
 
-// select id from images
-// order by asc
-// limit 1
-//
+exports.getTags = function(tag) {
+    console.log("taggggg...", tag);
+    return db.query(
+        `SELECT images.id AS id, url, title, description, username, tag
+            FROM tags
+            JOIN images
+            ON images.id = tags.image_id
+            WHERE LOWER(tag) = lOWER($1)
+            ORDER BY id DESC
+
+            `,
+        [tag]
+    );
+};
+
+// SELECT first, last, city, age, url, email
+//         FROM users
+//         JOIN user_profiles
+//         ON users.id = user_profiles.user_id
+//         WHERE users.id=$1`,
