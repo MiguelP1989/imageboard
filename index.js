@@ -97,7 +97,6 @@ app.get("/singleimage/:id/comment", (req, res) => {
     let imageid = req.params.id;
     db.getComments(imageid)
         .then(data => {
-            // console.log("daaaaaata....", data);
             let rows = data.rows;
             for (let i = 0; i < rows.length; i++) {
                 rows[i].created_at = moment(rows[i].created_at).format(
@@ -114,13 +113,11 @@ app.get("/singleimage/:id/comment", (req, res) => {
 //////////// post comments //////////
 
 app.post("/singleimage/:id", (req, res) => {
-    // console.log("req.bodoooooody....:", req.body);
     let comment = req.body.comment;
     let username = req.body.username;
     let imageid = req.params.id;
     db.insertComment(comment, username, imageid)
         .then(results => {
-            // console.log("results from insertComment...:", results);
             let rows = results.rows;
             res.json(rows);
         })
@@ -129,14 +126,12 @@ app.post("/singleimage/:id", (req, res) => {
         });
 });
 
-//////// get loadedimages /////
+//////// get loaded images /////
 
 app.get("/loadImages/:id", (req, res) => {
     let lastimageId = req.params.id;
     db.loadImages(lastimageId)
         .then(results => {
-            // console.log("results......", results);
-
             let rows = results.rows;
             res.json(rows);
         })
@@ -148,8 +143,6 @@ app.get("/loadImages/:id", (req, res) => {
 /////// Uploadtags /////
 
 app.post("/upload/tag", (req, res) => {
-    // console.log("req.body upload/tag ", req.body);
-
     let tag = req.body.tag;
     let imageid = req.body.image_id;
 
@@ -165,7 +158,7 @@ app.post("/upload/tag", (req, res) => {
 });
 //
 // ///// filter tag//////
-//
+
 app.get("/images/:tag", (req, res) => {
     console.log("req.paramsssss....", req.params);
 
@@ -173,16 +166,7 @@ app.get("/images/:tag", (req, res) => {
         .then(results => {
             console.log("rrrows", results.rows);
             let rows = results.rows;
-            res.json(
-                rows
-                // rows
-                // imageid: results.rows.id,
-                // tag: results.rows.tag
-                // title: results.rows.title,
-                // image: results.rows.url,
-                // description: results.rows.description,
-                // username: results.rows.username
-            );
+            res.json(rows);
         })
         .catch(err => {
             console.log("erroooooor", err);

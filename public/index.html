@@ -17,43 +17,39 @@
 
     <main>
         <div id="main">
-<form>
-<input v-model="title" typex="text" name="title" placeholder="Title" name="title">
-<input v-model="description" type="text" name="description" placeholder="Description" name="description">
-<input v-model="username" type="text" name="username" placeholder="Username" name="username">
-<select v-model="tag" name="tag">
-    <option disabled value="">Please select a tag</option>
-    <option>Veg</option>
-    <option>Fruit</option>
-</select>
-<div class="file-upload">
-<input type="file" name="file" accept="image/*" v-on:change="handleChange">
-<button id="btn" v-on:click.prevent.default="submitFile">Choose</button>
-</div>
-<button v-on:click.prevent.default="submitFile">Upload</button>
-</form>
+            <form>
+                <input v-model="title" typex="text" name="title" placeholder="Title" name="title">
+                <input v-model="description" type="text" name="description" placeholder="Description" name="description">
+                <input v-model="username" type="text" name="username" placeholder="Username" name="username">
+                <select v-model="tag" name="tag">
+                    <option disabled value="">Please select a tag</option>
+                    <option>Veg</option>
+                    <option>Fruit</option>
+                </select>
+                <div class="file-upload">
+                    <input type="file" name="file" accept="image/*" v-on:change="handleChange">
+                    <button id="btn" v-on:click.prevent.default="submitFile">Choose</button>
+                </div>
+                <button v-on:click.prevent.default="submitFile">Upload</button>
+            </form>
 
-<div class="select-tags">
-    <h2>Select a tag</h2>
-    <div>
-    <button v-on:click.prevent.default = "filterByTag('veg')">Veg tags</button>
-    <button v-on:click.prevent.default = "filterByTag('fruit')">Fruit tags</button>
-</div>
-</div>
+            <div class="select-tags">
+                <h2>Select a tag</h2>
+                <div>
+                    <button v-on:click.prevent.default="filterByTag('veg')">Veg tags</button>
+                    <button v-on:click.prevent.default="filterByTag('fruit')">Fruit tags</button>
+                </div>
+            </div>
 
 
             <div class="imageContainer">
                 <div v-for="image in images">
-                    <a :href =" '#' + image.id"><img  :src="image.url" alt="" ></a>
+                    <a :href=" '#' + image.id"><img :src="image.url" alt=""></a>
                     <!-- @click="popupmodal(image.id)" -->
                     <div class="imagetitle">
                         <p><strong>{{image.title}}</strong></br>
-                        On {{image.created_at}}</p>
-                        <!-- <p>{{image.description}}</p> -->
-
-
+                        
                     </div>
-
                 </div>
                 <my-component v-if="currentImage" v-bind:id="currentImage" @close="closingthemodal">
                 </my-component>
@@ -63,9 +59,9 @@
 
     <script id="popup-template" type="text/x-template">
 
-    <div class="main-popup-container">
-    <div class="popup-container">
-        <h3 @click = "closemodal" id="close">X</h3>
+        <div class="main-popup-container">
+            <div class="popup-container">
+                <h3 @click = "closemodal" id="close">X</h3>
 
 
         <div  class="imagepopup">
@@ -77,14 +73,7 @@
 
         </div>
 
-         <!-- <div class="imagepopup">
-            <h5>{{title}}</h5>
-        <img :src="singleimage">
-    </div>
-    <div class="imageDescription">
-        <p>{{description}}</p>
-        <p>{{username}}</p>
-    </div> -->
+
         <div class="comment-container">
         <div id="submit-comment">
             <input id ="formcoment" v-model="comment" type="text" name="comment" placeholder="Add a comment"></input>

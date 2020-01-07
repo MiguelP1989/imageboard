@@ -1,40 +1,3 @@
-// console.log("sanitycheck!!!!");
-
-// new Vue({
-//     el: "#main",
-//     data: {
-//         name: "Habanero!",
-//         seen: false,
-//         animals: []
-//         // animals: [
-//         //     {
-//         //         name: "Squid",
-//         //         emoji: "🦑"
-//         //     },
-//         //     {
-//         //         name: "Rabbit",
-//         //         emoji: "🐇"
-//         //     }
-//         // ]
-//     },
-//     mounted: function() {
-//         console.log("my vue component has mounted");
-//         console.log("this is my animals data: ", this.animals);
-//         var me = this;
-//         axios.get("/animals").then(function(response) {
-//             console.log("response from /animals :", response.data);
-//             console.log("me.animals: ", me.animals);
-//             me.animals = response.data;
-//         });
-//     },
-//     methods: {
-//         myFunction: function(nameClickedOn) {
-//             console.log("my function is running");
-//             console.log("nameClickedOn :", nameClickedOn);
-//             this.name = nameClickedOn;
-//         }
-//     }
-// });
 (function() {
     new Vue({
         el: "#main",
@@ -101,7 +64,6 @@
                         axios
                             .post("/upload/tag", taggedImage)
                             .then(function(resp) {
-                                // console.log("reeeeeesponse...taaaag", resp);
                                 console.log(
                                     "respond.data.tag[0].....",
                                     resp.data[0]
@@ -115,7 +77,6 @@
             },
             popupmodal: function(id) {
                 this.currentImage = id;
-                // console.log("id.....", id);
             },
             closingthemodal: function() {
                 this.currentImage = 0;
@@ -153,8 +114,6 @@
                     .get(`/images/${this.tag}`)
                     .then(function(resp) {
                         me.images = resp.data;
-
-                        console.log("========aa..", resp.data);
                         let tag = resp.data[0].tag;
                         if (tag === "veg") {
                             me.veg = true;

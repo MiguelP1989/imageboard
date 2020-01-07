@@ -1,32 +1,3 @@
-// Vue.component("my-component", {
-//     template: `<h2>Hello</h2>`,
-//     // supporting old browsers
-//     // template: `#my-template`
-//     data:function () {
-//         return{
-//             subGreeting: "yo!"
-//         }
-//     },
-//     props: ["grettee"],
-//     mathod: {
-//         changeSubGreeting: function() {
-//             this.subGreeting = "nice to see you";
-//
-//         }
-//     }
-// });
-
-// data: should be  function that returns an object
-
-// in HTML - can't be placed on the main element - must be outside of the vuw instance
-// requires to be only one element
-// <script type="text/x-template" id="my-template">
-// <div>
-//     <h3 @click="changeSubGreeting">{{subGreeting}} {{greetee}}</h3>
-//     <h4>hello hello hello</4>
-
-// </script>;
-
 Vue.component("my-component", {
     template: "#popup-template",
     props: ["id"],
@@ -40,7 +11,7 @@ Vue.component("my-component", {
             timestamp: "",
             description: "",
             comments: []
-        }; // {comment: ..., username:..., id:;;;, }
+        };
     },
     watch: {
         id: function() {
@@ -68,7 +39,6 @@ Vue.component("my-component", {
         axios
             .get(`/singleimage/${me.id}`)
             .then(function(resp) {
-                console.log("reeeeeeeeeeeeeesponse....", resp);
                 console.log("response from :", resp.data);
                 me.singleimage = resp.data[0].url;
                 me.title = resp.data[0].title;
@@ -80,7 +50,6 @@ Vue.component("my-component", {
                 console.log("errrorr:  ", err);
             });
         axios.get(`/singleimage/${me.id}/comment`).then(function(resp) {
-            console.log("response for comment...:", resp);
             me.comments = resp.data;
         });
     },
