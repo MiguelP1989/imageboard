@@ -17,6 +17,7 @@
 
     <main>
         <div id="main">
+
             <form>
                 <input v-model="title" typex="text" name="title" placeholder="Title" name="title">
                 <input v-model="description" type="text" name="description" placeholder="Description" name="description">
@@ -32,6 +33,7 @@
                 </div>
                 <button v-on:click.prevent.default="submitFile">Upload</button>
             </form>
+        
 
             <div class="select-tags">
                 <h2>Select a tag</h2>
@@ -42,13 +44,14 @@
             </div>
 
 
+
             <div class="imageContainer">
                 <div v-for="image in images">
                     <a :href=" '#' + image.id"><img :src="image.url" alt=""></a>
                     <!-- @click="popupmodal(image.id)" -->
                     <div class="imagetitle">
                         <p><strong>{{image.title}}</strong></br>
-                        
+
                     </div>
                 </div>
                 <my-component v-if="currentImage" v-bind:id="currentImage" @close="closingthemodal">
