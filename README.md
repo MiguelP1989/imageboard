@@ -5,4 +5,12 @@ The theme of this imageboard is based on Fruit&Veg Memes.
 
 # tech
 
-Vue.js, AWS S3, Node.js/Express & PostgreSQL.
+Vue.js, AWS S3, Node.js/Express & PostgreSQL
+
+# images
+
+![](public/images/imageboard.png)
+
+![](public/images/popup.png)
+
+
